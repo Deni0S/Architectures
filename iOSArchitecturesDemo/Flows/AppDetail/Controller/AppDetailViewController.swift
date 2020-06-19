@@ -29,6 +29,7 @@ final class AppDetailViewController: UIViewController {
         super.viewDidLoad()
         self.configureNavigationController()
         self.downloadImage()
+        self.setData()
     }
     
     // MARK: - Private
@@ -45,6 +46,23 @@ final class AppDetailViewController: UIViewController {
             self.appDetailView.throbber.stopAnimating()
             guard let image = image else { return }
             self.appDetailView.imageView.image = image
+        }
+    }
+    
+    private func setData() {
+        if let version = self.app?.averageRating {
+            self.appDetailView.versionLabel.text = String("Версия: \(version)")
+        }
+        if let name = self.app?.appName {
+            self.appDetailView.titleLabel.text = String("\(name)")
+        }
+        if let dateString = self.app?.releaseDate {
+            if let date = Date.appReleaseDate(for: dateString, with: "yyyy-MM-dd'T'HH:mm:ss'Z'") {
+                self.appDetailView.dateVersionLabel.text = String("от \(date)")
+            }
+        }
+        if let description = self.app?.appDescription {
+            self.appDetailView.appDescription.text = String("\(description)")
         }
     }
 }
