@@ -55,7 +55,7 @@ class AppSearchViewController: UIViewController {
         self.searchView.tableView.register(SongCell.self, forCellReuseIdentifier: Constants.reuseIdentifier)
         self.searchView.tableView.delegate = self
         self.searchView.tableView.dataSource = self
-        self.searchView.searchOptionButton.setBackgroundImage(UIImage(imageLiteralResourceName: "AppSearch.png") , for: .normal)
+        self.searchView.searchOptionButton.setBackgroundImage(UIImage(imageLiteralResourceName: "SongSearch.png") , for: .normal)
         self.searchView.searchOptionButton.addTarget(self, action: #selector(searchOptionButtonOnTap), for: .touchUpInside)
     }
     
