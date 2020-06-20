@@ -28,7 +28,7 @@ final class AppCell: UITableViewCell {
         return label
     }()
     
-    private(set) lazy var ratingLabel: UILabel = {
+    private(set) lazy var pictureLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .lightGray
@@ -53,13 +53,13 @@ final class AppCell: UITableViewCell {
     func configure(with cellModel: AppCellModel) {
         self.titleLabel.text = cellModel.title
         self.subtitleLabel.text = cellModel.subtitle
-        self.ratingLabel.text = cellModel.rating
+        self.pictureLabel.text = cellModel.rating
     }
     
     // MARK: - UI
     
     override func prepareForReuse() {
-        [self.titleLabel, self.subtitleLabel, self.ratingLabel].forEach { $0.text = nil }
+        [self.titleLabel, self.subtitleLabel, self.pictureLabel].forEach { $0.text = nil }
     }
     
     private func configureUI() {
@@ -87,11 +87,11 @@ final class AppCell: UITableViewCell {
     }
     
     private func addRatingLabel() {
-        self.contentView.addSubview(self.ratingLabel)
+        self.contentView.addSubview(self.pictureLabel)
         NSLayoutConstraint.activate([
-            self.ratingLabel.topAnchor.constraint(equalTo: self.subtitleLabel.bottomAnchor, constant: 4.0),
-            self.ratingLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 12.0),
-            self.ratingLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -40.0)
+            self.pictureLabel.topAnchor.constraint(equalTo: self.subtitleLabel.bottomAnchor, constant: 4.0),
+            self.pictureLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 12.0),
+            self.pictureLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -40.0)
             ])
     }
 }

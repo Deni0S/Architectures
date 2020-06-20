@@ -1,35 +1,38 @@
 //
-//  AppDetailViewController.swift
+//  SongDetailViewController.swift
 //  iOSArchitecturesDemo
 //
-//  Created by ekireev on 20.02.2018.
-//  Copyright © 2018 ekireev. All rights reserved.
+//  Created by Денис Баринов on 19.6.20.
+//  Copyright © 2020 ekireev. All rights reserved.
 //
 
 import UIKit
 
-final class AppDetailViewController: UIViewController {
-    
-    public var app: ITunesApp?
-    init(app: ITunesApp) {
-        self.app = app
+final class SongDetailViewController: UIViewController {
+    public var song: ITunesSong?
+    init(song: ITunesSong) {
+        self.song = song
         super.init(nibName: nil, bundle: nil)
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    init(){
+        super.init(nibName: nil, bundle: nil)
+    }
     
     private let imageDownloader = ImageDownloader()
     
-    private var appDetailView: AppDetailView {
-        return self.view as! AppDetailView
+    private var appDetailView: SongDetailView {
+        return self.view as! SongDetailView
     }
+    
     
     // MARK: - Lifecycle
     
     override func loadView() {
         super.loadView()
-        self.view = AppDetailView()
+        self.view = SongDetailView()
     }
 
     override func viewDidLoad() {
@@ -47,7 +50,7 @@ final class AppDetailViewController: UIViewController {
     }
     
     private func downloadImage() {
-        guard let url = self.app?.iconUrl else { return }
+        guard let url = self.song?.artwork else { return }
         self.appDetailView.throbber.startAnimating()
         self.imageDownloader.getImage(fromUrl: url) { (image, error) in
             self.appDetailView.throbber.stopAnimating()
@@ -57,19 +60,11 @@ final class AppDetailViewController: UIViewController {
     }
     
     private func setData() {
-        if let version = self.app?.averageRating {
-            self.appDetailView.versionLabel.text = String("Версия: \(version)")
+        if let artist = self.song?.artistName {
+            self.appDetailView.artistLabel.text = String("\(artist)")
         }
-        if let name = self.app?.appName {
-            self.appDetailView.titleLabel.text = String("\(name)")
-        }
-        if let dateString = self.app?.releaseDate {
-            if let date = Date.appReleaseDate(for: dateString, with: "yyyy-MM-dd'T'HH:mm:ss'Z'") {
-                self.appDetailView.dateVersionLabel.text = String("от \(date)")
-            }
-        }
-        if let description = self.app?.appDescription {
-            self.appDetailView.appDescription.text = String("\(description)")
+        if let track = self.song?.trackName {
+            self.appDetailView.trackLabel.text = String("\(track)")
         }
     }
 }

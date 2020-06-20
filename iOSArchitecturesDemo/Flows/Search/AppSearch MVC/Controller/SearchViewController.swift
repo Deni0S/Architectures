@@ -37,6 +37,8 @@ final class SearchViewController: UIViewController {
         self.searchView.tableView.register(AppCell.self, forCellReuseIdentifier: Constants.reuseIdentifier)
         self.searchView.tableView.delegate = self
         self.searchView.tableView.dataSource = self
+        self.searchView.searchOptionButton.addTarget(self, action: #selector(searchOptionButtonOnTap), for: .touchUpInside)
+        self.searchView.searchOptionButton.setBackgroundImage(UIImage(imageLiteralResourceName: "SongSearch.png") , for: .normal)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -45,6 +47,19 @@ final class SearchViewController: UIViewController {
     }
     
     // MARK: - Private
+    
+    @objc private func searchOptionButtonOnTap() {
+        let rootVC = SongSearchModuleBuilder.build()
+        rootVC.navigationItem.title = "Search for Songs"
+        let navVC = UINavigationController()
+        navVC.navigationBar.barTintColor = UIColor.varna
+        navVC.navigationBar.isTranslucent = false
+        navVC.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        navVC.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        navVC.viewControllers = [rootVC]
+        self.searchView.window?.rootViewController = navVC
+        self.searchView.window?.makeKeyAndVisible()
+    }
     
     private func throbber(show: Bool) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = show
@@ -120,8 +135,7 @@ extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let app = searchResults[indexPath.row]
-        let appDetaillViewController = AppDetailViewController()
-        appDetaillViewController.app = app
+        let appDetaillViewController = AppDetailViewController(app: app)
         navigationController?.pushViewController(appDetaillViewController, animated: true)
     }
 }

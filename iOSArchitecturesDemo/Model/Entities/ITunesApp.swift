@@ -19,6 +19,7 @@ public struct ITunesApp: Codable {
     public let appDescription: String?
     public let averageRating: Float?
     public let averageRatingForCurrentVersion: Float?
+    public let releaseDate: String?
     public let size: Bytes?
     public let iconUrl: String?
     public let screenshotUrls: [String]
@@ -33,6 +34,7 @@ public struct ITunesApp: Codable {
         case appDescription = "description"
         case averageRating = "averageUserRating"
         case averageRatingForCurrentVersion = "averageUserRatingForCurrentVersion"
+        case releaseDate = "releaseDate"
         case size = "fileSizeBytes"
         case iconUrl = "artworkUrl512"
         case screenshotUrls = "screenshotUrls"
@@ -47,6 +49,7 @@ public struct ITunesApp: Codable {
         self.appDescription = try? container.decode(String.self, forKey: .appDescription)
         self.averageRating = try? container.decode(Float.self, forKey: .averageRating)
         self.averageRatingForCurrentVersion = try? container.decode(Float.self, forKey: .averageRatingForCurrentVersion)
+        self.releaseDate = try? container.decode(String.self, forKey: .releaseDate)
         self.size = (try? container.decode(String.self, forKey: .size)) >>- { Bytes($0) }
         self.iconUrl = try? container.decode(String.self, forKey: .iconUrl)
         self.screenshotUrls = (try? container.decode([String].self, forKey: .screenshotUrls)) ?? []
@@ -61,6 +64,7 @@ public struct ITunesApp: Codable {
                   appDescription: String?,
                   averageRating: Float?,
                   averageRatingForCurrentVersion: Float?,
+                  releaseDate: String?,
                   size: Bytes?,
                   iconUrl: String?,
                   screenshotUrls: [String]) {
@@ -71,6 +75,7 @@ public struct ITunesApp: Codable {
         self.appDescription = appDescription
         self.averageRating = averageRating
         self.averageRatingForCurrentVersion = averageRatingForCurrentVersion
+        self.releaseDate = releaseDate
         self.size = size
         self.iconUrl = iconUrl
         self.screenshotUrls = screenshotUrls
