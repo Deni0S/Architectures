@@ -16,6 +16,7 @@ final class SearchView: UIView {
     let tableView = UITableView()
     let emptyResultView = UIView()
     let emptyResultLabel = UILabel()
+    let searchOptionButton = UIButton()
     
     // MARK: - Init
     
@@ -36,6 +37,7 @@ final class SearchView: UIView {
         self.addSearchBar()
         self.addTableView()
         self.addEmptyResultView()
+        self.addSearchOptionButton()
         self.setupConstraints()
     }
     
@@ -69,6 +71,14 @@ final class SearchView: UIView {
         self.emptyResultView.addSubview(self.emptyResultLabel)
     }
     
+    private func addSearchOptionButton() {
+        self.searchOptionButton.translatesAutoresizingMaskIntoConstraints = false
+        self.searchOptionButton.backgroundColor = .green
+        self.searchOptionButton.layer.cornerRadius = 30
+        self.searchOptionButton.isUserInteractionEnabled = true
+        self.addSubview(self.searchOptionButton)
+    }
+    
     private func setupConstraints() {
         let safeArea = self.safeAreaLayoutGuide
         
@@ -88,7 +98,12 @@ final class SearchView: UIView {
             self.emptyResultView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
             self.emptyResultLabel.topAnchor.constraint(equalTo: self.emptyResultView.topAnchor, constant: 12.0),
             self.emptyResultLabel.leadingAnchor.constraint(equalTo: self.emptyResultView.leadingAnchor),
-            self.emptyResultLabel.trailingAnchor.constraint(equalTo: self.emptyResultView.trailingAnchor)
-            ])
+            self.emptyResultLabel.trailingAnchor.constraint(equalTo: self.emptyResultView.trailingAnchor),
+            
+            self.searchOptionButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20),
+            self.searchOptionButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
+            self.searchOptionButton.widthAnchor.constraint(equalToConstant: 100.0),
+            self.searchOptionButton.heightAnchor.constraint(equalToConstant: 100.0)
+        ])
     }
 }
