@@ -11,6 +11,13 @@ import UIKit
 final class AppDetailViewController: UIViewController {
     
     public var app: ITunesApp?
+    init(app: ITunesApp) {
+        self.app = app
+        super.init(nibName: nil, bundle: nil)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private let imageDownloader = ImageDownloader()
     
